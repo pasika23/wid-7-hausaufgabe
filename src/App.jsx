@@ -1,7 +1,7 @@
-import Typography from "@mui/material/Typography";
+import Map from "./maps/QuakesMap";
 
 function App() {
-  return <Typography variant="h3">Hello React + MUI!</Typography>;
+  return <Map />;
 }
 
 export default App;
