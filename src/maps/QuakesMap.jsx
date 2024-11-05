@@ -2,7 +2,7 @@ import { renderToString } from "react-dom/server";
 import { CssBaseline, Link, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import L from "leaflet";
-import { MapContainer, TileLayer, GeoJSON, LayersControl, Circle } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, LayersControl } from "react-leaflet";
 import Header from "./Header";
 import { BASE_LAYERS } from "./baseLayers";
 
@@ -81,7 +81,7 @@ function Map() {
     fetchQuakeData(url);
   }, []);
 
-  console.log(quakesJson);
+  // console.log(quakesJson);
 
   return (
     <>
