@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import L from "leaflet";
 import { MapContainer, TileLayer, GeoJSON, LayersControl } from "react-leaflet";
 import Header from "./Header";
+import Selectbar from "./Selectbar";
 import { BASE_LAYERS } from "./baseLayers";
+import {nanoid} from "nanoid";
 
 const OUTER_BOUNDS = [
   [-80, -180],
@@ -62,6 +64,7 @@ function Map() {
   const [quakesJson, setQuakesJson] = useState([]);
   const [minMag, setMinMag] = useState("2.5");
   const [timespan, setTimespan] = useState("week");
+  const [jsonKey,setJsonKey] = useState(null)
 
   async function fetchQuakeData(url) {
     try {
@@ -71,6 +74,7 @@ function Map() {
       }
       const data = await resp.json();
       setQuakesJson(data.features);
+      setJsonKey(nanoid(6));
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +83,7 @@ function Map() {
   useEffect(() => {
     const url = `${BASE_URL}/${minMag}_${timespan}.geojson`;
     fetchQuakeData(url);
-  }, []);
+  }, [minMag,timespan]);
 
   // console.log(quakesJson);
 
@@ -87,8 +91,9 @@ function Map() {
     <>
       <CssBaseline />
       <Header />
+      <Selectbar minMag={minMag} setMinMag={setMinMag} setTimespan={setTimespan} timespan={timespan}/>
       <MapContainer
-        style={{ height: "100vh" }}
+        style={{ height: "80vh" }}
         center={[0, 0]}
         zoom={3}
         minZoom={2}
